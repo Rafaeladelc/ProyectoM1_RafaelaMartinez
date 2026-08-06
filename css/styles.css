@@ -1,0 +1,169 @@
+/* ============================================
+   Colorfly · css/styles.css
+   Apariencia visual del Generador de Paletas
+   ============================================ */
+
+/* 1. Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Variables globales */
+:root {
+  --color-acento: #7c3aed;         /* Morado: botón y acentos */
+  --color-acento-hover: #6d28d9;   /* Morado más oscuro para el hover */
+  --color-oscuro: #1a1a2e;         /* Azul marino: header y footer */
+  --color-fondo: #f0f0f0;          /* Gris claro: fondo de la página */
+  --color-claro: #ffffff;          /* Blanco: texto sobre fondos oscuros */
+  --color-borde: #cccccc;          /* Gris neutro: bordes de los selects */
+  --radio-borde: 0.5rem;           /* Radio de bordes redondeados */
+}
+
+/* Base del documento */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-fondo);
+  color: var(--color-oscuro);
+}
+
+/* 3. Header */
+.encabezado {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 2rem;
+  background-color: var(--color-oscuro);
+  color: var(--color-claro);
+}
+
+.marca {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+}
+
+.titulo-principal {
+  flex: 1;              /* ocupa el espacio restante para centrarse */
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* 4. Controles */
+.controles {
+  display: flex;
+  align-items: flex-end;   /* alinea selects y botón por abajo */
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background-color: var(--color-claro);
+}
+
+.grupo-control {
+  display: flex;
+  flex-direction: column;  /* label arriba, select abajo */
+  gap: 0.4rem;
+}
+
+.grupo-control label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.grupo-control select {
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background-color: var(--color-claro);
+  color: var(--color-oscuro);
+  cursor: pointer;
+}
+
+/* Botón principal (incluye transición suave para el hover) */
+.boton-generar {
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-claro);
+  background-color: var(--color-acento);
+  border: none;
+  border-radius: var(--radio-borde);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.boton-generar:hover {
+  background-color: var(--color-acento-hover);
+}
+
+/* Foco visible (accesibilidad) */
+.boton-generar:focus-visible,
+.grupo-control select:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* 5. Contenedor de la paleta (grid) */
+.contenido-principal {
+  flex: 1;             /* empuja el footer hacia abajo */
+  padding: 2rem;
+}
+
+.contenedor-paleta {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Clases modificadoras: fijan la cantidad exacta de columnas */
+.contenedor-paleta--6 { grid-template-columns: repeat(6, 1fr); }
+.contenedor-paleta--8 { grid-template-columns: repeat(8, 1fr); }
+.contenedor-paleta--9 { grid-template-columns: repeat(9, 1fr); }
+
+/* 6. Columnas de color (las crea JavaScript dinámicamente) */
+.columna-color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  border-radius: var(--radio-borde);
+  cursor: pointer;
+  transition: filter 0.2s ease;   /* hover suave */
+}
+
+.columna-color:hover {
+  filter: brightness(1.08);
+}
+
+.codigo-color {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-claro);      /* fallback; ver nota más abajo */
+  text-align: center;
+}
+
+/* 7. Notificación (microfeedback) */
+.notificacion {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radio-borde);
+  background-color: var(--color-oscuro);
+  color: var(--color-claro);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* 8. Footer */
+.pie-pagina {
+  padding: 1.25rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  background-color: var(--color-oscuro);
+  color: var(--color-claro);
+}
