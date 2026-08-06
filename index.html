@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colorfly | Generador de Paletas</title>
+  <!-- Hoja de estilos externa -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Header: identidad del proyecto y título principal -->
+  <header class="encabezado">
+    <p class="marca">Colorfly</p>
+    <h1 class="titulo-principal">Generador de Paletas</h1>
+  </header>
+
+  <!-- Controles: opciones para configurar y generar la paleta -->
+  <section class="controles" aria-label="Controles del generador">
+
+    <!-- Selector de tamaño de la paleta -->
+    <div class="grupo-control">
+      <label for="selector-tamano">Tamaño de la paleta</label>
+      <select id="selector-tamano" name="selector-tamano">
+        <option value="6">6 Colores</option>
+        <option value="8">8 Colores</option>
+        <option value="9">9 Colores</option>
+      </select>
+    </div>
+
+    <!-- Selector de formato de color -->
+    <div class="grupo-control">
+      <label for="selector-formato">Formato de color</label>
+      <select id="selector-formato" name="selector-formato">
+        <option value="hex">HEX</option>
+        <option value="hsl">HSL</option>
+      </select>
+    </div>
+
+    <!-- Botón principal para generar la paleta -->
+    <button type="button" id="boton-generar" class="boton-generar">
+      Generar paleta
+    </button>
+
+  </section>
+
+  <!-- Main: área donde se renderiza la paleta generada -->
+  <main class="contenido-principal">
+    <!-- Contenedor vacío: las columnas de color se crean con JavaScript -->
+    <section id="contenedor-paleta" class="contenedor-paleta" aria-label="Paleta de colores generada"></section>
+  </main>
+
+  <!-- Notificación: microfeedback al copiar un color (oculto por defecto) -->
+  <p id="notificacion" class="notificacion" role="status" aria-live="polite" hidden>
+    Color copiado al portapapeles
+  </p>
+
+  <!-- Footer: créditos del proyecto -->
+  <footer class="pie-pagina">
+    <p>&copy; 2026 Colorfly Studio | Desarrollado por Rafaela Martinez</p>
+  </footer>
+
+  <!-- Script externo (al final del body para que el DOM ya exista) -->
+  <script src="js/script.js"></script>
+</body>
+</html>
