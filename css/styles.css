@@ -102,6 +102,7 @@ body {
 
 .boton-generar:hover {
   background-color: var(--color-acento-hover);
+  transform: translateY(-1px);     /* se eleva apenas al pasar el mouse */
 }
 
 /* Foco visible (accesibilidad) */
@@ -135,11 +136,13 @@ body {
   min-height: 65vh;
   border-radius: var(--radio-borde);
   cursor: pointer;
-  transition: filter 0.2s ease;   /* hover suave */
+  transition: filter 0.2s ease, transform 0.2s ease;   /* hover suave */
 }
 
 .columna-color:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.12);        /* más brillo que antes */
+  transform: scale(1.02);          /* crece un poquito */
+  z-index: 1;                      /* se pone por encima de las vecinas */
 }
 
 .codigo-color {
