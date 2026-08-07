@@ -165,7 +165,7 @@ function guardarPaleta() {
   // 3. Agregarlo al array y volver a guardar todo como texto
   guardadas.push(registro);
   localStorage.setItem("paletasGuardadas", JSON.stringify(guardadas));
-
+  mostrarPaletasGuardadas();   // redibuja la lista para mostrar la nueva
 }
 
 // Lee las paletas guardadas y las dibuja en pantalla
@@ -205,6 +205,7 @@ function mostrarPaletasGuardadas() {
     paletaDiv.appendChild(filaMiniaturas);
     paletaDiv.appendChild(fecha);
     listaGuardadas.appendChild(paletaDiv);
+
   });
 }
 
