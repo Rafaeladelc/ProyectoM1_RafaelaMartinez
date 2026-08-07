@@ -112,6 +112,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Mensaje recordatorio (aparece al cambiar un selector) */
+.mensaje-recordatorio {
+  width: 100%;                       /* ocupa su propia línea debajo de los controles */
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-acento);        /* morado, coherente con el botón */
+}
+
 /* 5. Contenedor de la paleta (grid) */
 .contenido-principal {
   flex: 1;             /* empuja el footer hacia abajo */

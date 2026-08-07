@@ -79,21 +79,34 @@ const boton = document.getElementById("boton-generar");
 const selectorTamano = document.getElementById("selector-tamano");
 const selectorFormato = document.getElementById("selector-formato");
 const contenedor = document.getElementById("contenedor-paleta");
-const notificacion = document.getElementById("notificacion");   // NUEVO
+const notificacion = document.getElementById("notificacion");
+const mensajeRecordatorio = document.getElementById("mensaje-recordatorio");
 
 let temporizadorNotificacion;   // guarda el temporizador activo
 
-// Notificación y la oculta sola tras 2 segundos - Microfeedback
+// Muestra la notificación y la oculta sola tras 2 segundos (microfeedback)
 function mostrarNotificacion() {
-  notificacion.hidden = false;              // la hace visible
+  notificacion.hidden = false;
 
-  clearTimeout(temporizadorNotificacion);   // cancela un temporizador previo
+  clearTimeout(temporizadorNotificacion);
   temporizadorNotificacion = setTimeout(function () {
-    notificacion.hidden = true;             // la oculta de nuevo
-  }, 2000);                                 // 2000 ms = 2 segundos
+    notificacion.hidden = true;
+  }, 2000);
+}
+
+// Muestra el recordatorio cuando hay un cambio sin aplicar
+function mostrarRecordatorio() {
+  mensajeRecordatorio.hidden = false;
+}
+
+// Oculta el recordatorio (cuando ya se generó la paleta)
+function ocultarRecordatorio() {
+  mensajeRecordatorio.hidden = true;
 }
 
 function generarPaletaEnPantalla() {
+  ocultarRecordatorio();   // al generar, ya no hay cambios pendientes
+
   const tamano = Number(selectorTamano.value);
   const formato = selectorFormato.value;
 
@@ -109,10 +122,10 @@ function generarPaletaEnPantalla() {
     columna.className = "columna-color";
     columna.style.background = color.css;   // el fondo sale del HSL
 
-    // Copiara color el HEX y muestra la notificación
+    // Al hacer clic, copia el HEX y muestra la notificación
     columna.addEventListener("click", function () {
-      navigator.clipboard.writeText(color.hex);   // copia el HEX al portapapeles
-      mostrarNotificacion();                        // avisa al usuario
+      navigator.clipboard.writeText(color.hex);
+      mostrarNotificacion();
     });
 
     // El texto con el/los código(s)
@@ -134,6 +147,12 @@ function generarPaletaEnPantalla() {
   });
 }
 
+// Al cambiar un selector, aparece el recordatorio de generar
+selectorTamano.addEventListener("change", mostrarRecordatorio);
+selectorFormato.addEventListener("change", mostrarRecordatorio);
+
+// Al hacer clic en el botón, redibuja la paleta
 boton.addEventListener("click", generarPaletaEnPantalla);
 
+// Y una vez al cargar, para que la pantalla no arranque vacía
 generarPaletaEnPantalla();
