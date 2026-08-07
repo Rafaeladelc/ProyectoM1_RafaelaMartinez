@@ -88,7 +88,8 @@ let temporizadorNotificacion;   // guarda el temporizador activo
 let paletaActual = [];   // guarda la última paleta generada, accesible desde afuera
 
 // Muestra la notificación y la oculta sola tras 2 segundos (microfeedback)
-function mostrarNotificacion() {
+function mostrarNotificacion(mensaje) {
+  notificacion.textContent = mensaje;   // cambia el texto según la acción
   notificacion.hidden = false;
 
   clearTimeout(temporizadorNotificacion);
@@ -128,7 +129,7 @@ function generarPaletaEnPantalla() {
     // Al hacer clic, copia el HEX y muestra la notificación
     columna.addEventListener("click", function () {
       navigator.clipboard.writeText(color.hex);
-      mostrarNotificacion();
+      mostrarNotificacion("Color copiado al portapapeles");
     });
 
     // El texto con el/los código(s)
@@ -165,7 +166,9 @@ function guardarPaleta() {
   // 3. Agregarlo al array y volver a guardar todo como texto
   guardadas.push(registro);
   localStorage.setItem("paletasGuardadas", JSON.stringify(guardadas));
-  mostrarPaletasGuardadas();   // redibuja la lista para mostrar la nueva
+
+  mostrarPaletasGuardadas();
+  mostrarNotificacion("Paleta guardada");   // NUEVO: aviso flotante al guardar
 }
 
 // Lee las paletas guardadas y las dibuja en pantalla

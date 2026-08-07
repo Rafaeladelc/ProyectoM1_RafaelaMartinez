@@ -186,9 +186,10 @@ body {
 /* 7. Notificación (microfeedback) */
 .notificacion {
   position: fixed;
-  right: 2rem;
   bottom: 2rem;
-  padding: 0.75rem 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);   /* centra horizontalmente */
+  padding: 0.75rem 1.5rem;
   border-radius: var(--radio-borde);
   background-color: var(--color-oscuro);
   color: var(--color-claro);
