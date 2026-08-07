@@ -31,7 +31,7 @@ _(pendiente)_
 - [x] Selección del tamaño de la paleta (6, 8 o 9 colores)
 - [x] Generación de colores aleatorios en formato HSL y HEX
 - [X] Visualización de cada color con su código HEX
-- [ ] Microfeedback visible al interactuar
+- [X] Microfeedback visible al interactuar
 - [x] Accesibilidad básica: labels asociados, contraste y foco visible
 
 ## 📁 Estructura del proyecto
