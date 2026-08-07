@@ -41,10 +41,15 @@
     <button type="button" id="boton-generar" class="boton-generar">
       Generar paleta
     </button>
-    
+        
     <p id="mensaje-recordatorio" class="mensaje-recordatorio" role="status" aria-live="polite" hidden>
       Presioná "Generar paleta" para aplicar los cambios
     </p>
+
+        <!-- Botón para guardar la paleta actual en localStorage -->
+    <button type="button" id="boton-guardar" class="boton-guardar">
+      Guardar paleta
+    </button>
 
   </section>
 
@@ -52,6 +57,16 @@
   <main class="contenido-principal">
     <!-- Contenedor vacío: las columnas de color se crean con JavaScript -->
     <section id="contenedor-paleta" class="contenedor-paleta" aria-label="Paleta de colores generada"></section>
+ 
+    <!-- Sección de paletas guardadas (se llena con JavaScript) -->
+    <section class="paletas-guardadas" aria-label="Paletas guardadas">
+      <h2 class="titulo-guardadas">Paletas guardadas</h2>
+      <button type="button" id="boton-limpiar" class="boton-limpiar">
+        Limpiar guardadas
+      </button>
+      <div id="lista-guardadas" class="lista-guardadas"></div>
+    </section>
+ 
   </main>
 
   <!-- Notificación: microfeedback al copiar un color (oculto por defecto) -->

@@ -75,14 +75,17 @@ function generarPaleta(tamano) {
 
 /* ---- Fase 4: conexión con el DOM ---- */
 
+const botonGuardar = document.getElementById("boton-guardar");
 const boton = document.getElementById("boton-generar");
 const selectorTamano = document.getElementById("selector-tamano");
 const selectorFormato = document.getElementById("selector-formato");
 const contenedor = document.getElementById("contenedor-paleta");
 const notificacion = document.getElementById("notificacion");
 const mensajeRecordatorio = document.getElementById("mensaje-recordatorio");
+const botonLimpiar = document.getElementById("boton-limpiar");
 
 let temporizadorNotificacion;   // guarda el temporizador activo
+let paletaActual = [];   // guarda la última paleta generada, accesible desde afuera
 
 // Muestra la notificación y la oculta sola tras 2 segundos (microfeedback)
 function mostrarNotificacion() {
@@ -112,11 +115,11 @@ function generarPaletaEnPantalla() {
 
   contenedor.className = "contenedor-paleta contenedor-paleta--" + tamano;
 
-  const paleta = generarPaleta(tamano);
+   paletaActual = generarPaleta(tamano);
 
   contenedor.innerHTML = "";
 
-  paleta.forEach(function (color) {
+  paletaActual.forEach(function (color) {
     // Cada franja de color
     const columna = document.createElement("div");
     columna.className = "columna-color";
@@ -147,12 +150,83 @@ function generarPaletaEnPantalla() {
   });
 }
 
+// Guarda la paleta actual en el historial de localStorage
+function guardarPaleta() {
+  // 1. Recuperar las paletas ya guardadas (o un array vacío si no hay ninguna)
+  const guardadasTexto = localStorage.getItem("paletasGuardadas");
+  const guardadas = guardadasTexto ? JSON.parse(guardadasTexto) : [];
+
+  // 2. Armar el registro nuevo: los colores + la fecha
+  const registro = {
+    colores: paletaActual,
+    fecha: new Date().toLocaleString()
+  };
+
+  // 3. Agregarlo al array y volver a guardar todo como texto
+  guardadas.push(registro);
+  localStorage.setItem("paletasGuardadas", JSON.stringify(guardadas));
+
+}
+
+// Lee las paletas guardadas y las dibuja en pantalla
+function mostrarPaletasGuardadas() {
+  const listaGuardadas = document.getElementById("lista-guardadas");
+
+  // Recuperar del localStorage (o array vacío si no hay nada)
+  const guardadasTexto = localStorage.getItem("paletasGuardadas");
+  const guardadas = guardadasTexto ? JSON.parse(guardadasTexto) : [];
+
+  // Limpiar antes de redibujar
+  listaGuardadas.innerHTML = "";
+
+  // Por cada paleta guardada, armar su fila
+  guardadas.forEach(function (registro) {
+    // Contenedor de esta paleta
+    const paletaDiv = document.createElement("div");
+    paletaDiv.className = "paleta-guardada";
+
+    // Fila de cuadraditos de color
+    const filaMiniaturas = document.createElement("div");
+    filaMiniaturas.className = "fila-miniaturas";
+
+    registro.colores.forEach(function (color) {
+      const miniatura = document.createElement("div");
+      miniatura.className = "miniatura";
+      miniatura.style.background = color.css;
+      filaMiniaturas.appendChild(miniatura);
+    });
+
+    // La fecha
+    const fecha = document.createElement("p");
+    fecha.className = "fecha-guardada";
+    fecha.textContent = "Guardada el " + registro.fecha;
+
+    // Armar todo
+    paletaDiv.appendChild(filaMiniaturas);
+    paletaDiv.appendChild(fecha);
+    listaGuardadas.appendChild(paletaDiv);
+  });
+}
+
+// Borra todas las paletas guardadas de localStorage
+function limpiarGuardadas() {
+  const confirmar = confirm("¿Seguro que querés borrar todas las paletas guardadas?");
+  if (!confirmar) return;   // si dice que no, no hace nada
+
+  localStorage.removeItem("paletasGuardadas");   // borra la clave del localStorage
+  mostrarPaletasGuardadas();                      // redibuja (ahora vacío)
+}
+
 // Al cambiar un selector, aparece el recordatorio de generar
 selectorTamano.addEventListener("change", mostrarRecordatorio);
 selectorFormato.addEventListener("change", mostrarRecordatorio);
+botonGuardar.addEventListener("click", guardarPaleta);
+botonLimpiar.addEventListener("click", limpiarGuardadas);
 
 // Al hacer clic en el botón, redibuja la paleta
 boton.addEventListener("click", generarPaletaEnPantalla);
 
 // Y una vez al cargar, para que la pantalla no arranque vacía
 generarPaletaEnPantalla();
+
+mostrarPaletasGuardadas();   // muestra las guardadas al cargar
