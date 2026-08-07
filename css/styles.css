@@ -194,6 +194,7 @@ body {
   background-color: var(--color-oscuro);
   color: var(--color-claro);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 100;  
 }
 
 /* 8. Footer */
