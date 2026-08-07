@@ -79,6 +79,19 @@ const boton = document.getElementById("boton-generar");
 const selectorTamano = document.getElementById("selector-tamano");
 const selectorFormato = document.getElementById("selector-formato");
 const contenedor = document.getElementById("contenedor-paleta");
+const notificacion = document.getElementById("notificacion");   // NUEVO
+
+let temporizadorNotificacion;   // guarda el temporizador activo
+
+// Notificación y la oculta sola tras 2 segundos - Microfeedback
+function mostrarNotificacion() {
+  notificacion.hidden = false;              // la hace visible
+
+  clearTimeout(temporizadorNotificacion);   // cancela un temporizador previo
+  temporizadorNotificacion = setTimeout(function () {
+    notificacion.hidden = true;             // la oculta de nuevo
+  }, 2000);                                 // 2000 ms = 2 segundos
+}
 
 function generarPaletaEnPantalla() {
   const tamano = Number(selectorTamano.value);
@@ -95,6 +108,12 @@ function generarPaletaEnPantalla() {
     const columna = document.createElement("div");
     columna.className = "columna-color";
     columna.style.background = color.css;   // el fondo sale del HSL
+
+    // Copiara color el HEX y muestra la notificación
+    columna.addEventListener("click", function () {
+      navigator.clipboard.writeText(color.hex);   // copia el HEX al portapapeles
+      mostrarNotificacion();                        // avisa al usuario
+    });
 
     // El texto con el/los código(s)
     const codigo = document.createElement("span");
