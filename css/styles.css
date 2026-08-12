@@ -159,6 +159,15 @@ body {
 .contenedor-paleta--8 { grid-template-columns: repeat(8, 1fr); }
 .contenedor-paleta--9 { grid-template-columns: repeat(9, 1fr); }
 
+/* Mensaje de ayuda: indica que se puede copiar al hacer clic */
+.ayuda-copiar {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-oscuro);
+  margin-bottom: 1rem;
+}
+
 /* 6. Columnas de color (las crea JavaScript dinámicamente) */
 .columna-color {
   display: flex;
@@ -235,13 +244,20 @@ body {
   display: flex;
   gap: 0.4rem;
   margin-bottom: 0.5rem;
+  justify-content: center;
 }
 
 /* Cada cuadradito de color */
 .miniatura {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.3rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.4rem;
+  cursor: pointer;              /* indica que es clicable */
+  transition: transform 0.15s ease;   /* para el efecto de hover */
+}
+
+.miniatura:hover {
+  transform: scale(1.1);        /* NUEVO: crece un poco al pasar el mouse */
 }
 
 /* La fecha debajo de las miniaturas */
@@ -249,6 +265,7 @@ body {
   font-size: 0.8rem;
   color: var(--color-oscuro);
   opacity: 0.7;
+  text-align: center;
 }
 
 /* Botón limpiar guardadas */

@@ -196,7 +196,15 @@ function mostrarPaletasGuardadas() {
       const miniatura = document.createElement("div");
       miniatura.className = "miniatura";
       miniatura.style.background = color.css;
+
+     // NUEVO: al hacer clic en la miniatura, copia su HEX
+      miniatura.addEventListener("click", function () {
+       navigator.clipboard.writeText(color.hex);
+       mostrarNotificacion("Color copiado al portapapeles");
+     });
+
       filaMiniaturas.appendChild(miniatura);
+      
     });
 
     // La fecha
