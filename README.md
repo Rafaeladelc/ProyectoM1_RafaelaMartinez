@@ -52,6 +52,8 @@ forma rápida e intuitiva, mostrando cada color junto a su código de color
 5. **Presione "Guardar paleta"** para almacenar la paleta actual en sus favoritas (se conservan aunque cierre el navegador).
 6. **Presione "Limpiar guardadas"** para borrar todas las paletas almacenadas.
 
+![Guia de uso](img/guia-uso.jpg)
+
 ## 💻 Cómo ejecutar el proyecto en local
 
 1. Clone el repositorio:
