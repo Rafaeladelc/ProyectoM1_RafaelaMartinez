@@ -73,7 +73,7 @@ body {
 }
 
 .grupo-control label {
-  font-size: 1.25rem
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
@@ -258,7 +258,7 @@ body {
 }
 
 .miniatura:hover {
-  transform: scale(1.1);        /* NUEVO: crece un poco al pasar el mouse */
+  transform: scale(1.1);        /* crece un poco al pasar el mouse */
 }
 
 /* La fecha debajo de las miniaturas */

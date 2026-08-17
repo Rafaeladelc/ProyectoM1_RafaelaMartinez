@@ -108,6 +108,45 @@ function ocultarRecordatorio() {
   mensajeRecordatorio.hidden = true;
 }
 
+// ===== NUEVO: Redibuja la paleta actual con el formato seleccionado =====
+// Sin regenerar colores, solo cambia la representación visual
+function redibujarConFormato() {
+  const formato = selectorFormato.value;
+
+  contenedor.innerHTML = "";
+
+  paletaActual.forEach(function (color) {
+    // Cada franja de color
+    const columna = document.createElement("div");
+    columna.className = "columna-color";
+    columna.style.background = color.css;   // el fondo sale del HSL
+
+    // Al hacer clic, copia el HEX y muestra la notificación
+    columna.addEventListener("click", function () {
+      navigator.clipboard.writeText(color.hex);
+      mostrarNotificacion("Color copiado al portapapeles");
+    });
+
+    // El texto con el/los código(s)
+    const codigo = document.createElement("span");
+    codigo.className = "codigo-color";
+
+    if (formato === "hex") {
+      // Modo HEX: solo el código HEX
+      codigo.textContent = color.hex;
+    } else {
+      // Modo HSL: el HEX y su equivalente en HSL, en dos líneas
+      codigo.append(color.hex, document.createElement("br"), color.css);
+    }
+
+    codigo.style.color = obtenerColorTexto(color);
+
+    columna.appendChild(codigo);
+    contenedor.appendChild(columna);
+  });
+}
+// ===== FIN DE LA NUEVA FUNCIÓN =====
+
 function generarPaletaEnPantalla() {
   ocultarRecordatorio();   // al generar, ya no hay cambios pendientes
 
@@ -197,7 +236,7 @@ function mostrarPaletasGuardadas() {
       miniatura.className = "miniatura";
       miniatura.style.background = color.css;
 
-     // NUEVO: al hacer clic en la miniatura, copia su HEX
+     // Al hacer clic en la miniatura, copia su HEX
       miniatura.addEventListener("click", function () {
        navigator.clipboard.writeText(color.hex);
        mostrarNotificacion("Color copiado al portapapeles");
@@ -229,9 +268,18 @@ function limpiarGuardadas() {
   mostrarPaletasGuardadas();                      // redibuja (ahora vacío)
 }
 
-// Al cambiar un selector, aparece el recordatorio de generar
+// ===== EVENTO LISTENERS =====
+
+// Al cambiar el tamaño, muestra recordatorio
 selectorTamano.addEventListener("change", mostrarRecordatorio);
-selectorFormato.addEventListener("change", mostrarRecordatorio);
+
+// CAMBIO IMPORTANTE: Al cambiar el formato, redibuja con el nuevo formato
+// (sin generar colores nuevos)
+selectorFormato.addEventListener("change", function() {
+  redibujarConFormato();
+  ocultarRecordatorio();
+});
+
 botonGuardar.addEventListener("click", guardarPaleta);
 botonLimpiar.addEventListener("click", limpiarGuardadas);
 
